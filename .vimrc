@@ -9,12 +9,13 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'valloric/youcompleteme'
 Plugin 'Yggdroot/indentLine'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'dodie/vim-fibo-indent'
+Plugin 'dense-analysis/ale'
 
 " Plugins here
 
@@ -29,15 +30,28 @@ call vundle#end()
 " Put your non-Plugin stuff after this line
 
 " For syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_quiet_messages = { "type": "style" }
 " End syntastic
+
+" For ALE
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 1
+let g:ale_linters = {
+\   'python': ['pylint'],
+\}
+let g:ale_fixers = {
+\ 'python': ['autopep8']
+\}
+" End ALE
 
 " For YouCompleteMe
 let g:ycm_python_interpreter_path = ''
@@ -98,4 +112,5 @@ set incsearch		" Incremental search
 
 " Show line numbers
 :set number
+:set splitright
 
