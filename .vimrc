@@ -14,8 +14,10 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'valloric/youcompleteme'
 Plugin 'Yggdroot/indentLine'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'dodie/vim-fibo-indent'
+" Plugin 'dodie/vim-fibo-indent'
 Plugin 'dense-analysis/ale'
+Plugin 'vim-airline/vim-airline'
+Plugin 'thaerkh/vim-workspace'
 
 " Plugins here
 
@@ -61,7 +63,12 @@ let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_sys_path'
   \]
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
+" let g:ycm_auto_trigger = 0
 " End YouCompleteMe
+
+" for vim-workspace plugin
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_autosave_untrailspaces = 0
 
 " Indent lines
 let g:indentLine_char = '▏'
