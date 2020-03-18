@@ -1,5 +1,9 @@
+" vim: fdm=marker foldenable sw=4 ts=4 sts=4
+" "zo" to open folds, "zc" to close, "zn" to disable.
+
 set nocompatible
 filetype off
+" {{{ PLUGINS!
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -49,6 +53,11 @@ Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 
 " apparently the best git plugin for vim
 Plugin 'tpope/vim-fugitive'
+
+" to search through files using ag/ack
+" see :Ack section below to enable Ag support
+Plugin 'mileszs/ack.vim'
+
 " Plugins end
 
 call vundle#end()
@@ -60,8 +69,9 @@ call vundle#end()
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+" }}}
 
-" For syntastic
+" {{{ For syntastic
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
@@ -72,8 +82,9 @@ call vundle#end()
 " let g:syntastic_check_on_wq = 0
 " let g:syntastic_quiet_messages = { "type": "style" }
 " End syntastic
+" }}}
 
-" For ALE
+" {{{ For ALE
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_filetype_changed = 1
@@ -84,6 +95,7 @@ let g:ale_fixers = {
 \ 'python': ['autopep8']
 \}
 " End ALE
+" }}}
 
 " {{{ For YouCompleteMe
 "let g:ycm_python_interpreter_path = ''
@@ -97,9 +109,17 @@ let g:ale_fixers = {
 " End YouCompleteMe
 " }}}
 
-" for vim-workspace plugin
+" {{{ for vim-workspace plugin
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_autosave_untrailspaces = 0
+" }}}
+
+" {{{ for :Ack
+" support for Ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+" }}}
 
 " Indent lines
 let g:indentLine_char = '▏'
@@ -109,6 +129,7 @@ let g:indentLine_char = '▏'
 " :set shiftwidth=4
 " :set expandtab
 
+" {{{ Stuff from /etc/vim/vimrc
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
 if has("syntax")
@@ -137,28 +158,34 @@ set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
+" }}}
 
-" Show tabs and spaces
+" {{{ Show tabs and spaces
 " :set listchars=tab:▸\ ,trail:· 
 :set listchars=tab:├─,trail:·,nbsp:⎵
 :set list
+" }}}
 
-" Show line numbers
+" {{{ Show line numbers
 :set number
 :set splitright
+" }}}
 
-" from talk on vim by maxim
+" {{{ from talk on vim by maxin
 set path+=** " Adds ability to search in all subdirs
 set wildmenu " Shows tab completion options in command mode
 
 " For the below command to work, ctags must be installed
 command! MakeTags !ctags -R .
+" }}}
 
-" vim-instant-markdown configurations 
+" {{{ vim-instant-markdown configurations 
 let g:instant_mardown_autostart = 0 
 "disables autostart
+" }}}
 
-" Change indent continuously
+" {{{ Change indent continuously
 vmap < <gv
 vmap > >gv
+" }}}
 
