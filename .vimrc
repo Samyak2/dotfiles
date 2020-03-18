@@ -11,14 +11,15 @@ Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'valloric/youcompleteme'
 Plugin 'Yggdroot/indentLine'
 Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'dodie/vim-fibo-indent'
 Plugin 'dense-analysis/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'thaerkh/vim-workspace'
-
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'jkramer/vim-checkbox'
+Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 " Plugins here
 
 call vundle#end()
@@ -121,3 +122,12 @@ set incsearch		" Incremental search
 :set number
 :set splitright
 
+
+" vim-instant-markdown configurations 
+let g:instant_mardown_autostart = 0 
+"disables autostart
+
+
+
+" adding fuzzy file search
+set path+=**
