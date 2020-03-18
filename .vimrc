@@ -7,23 +7,49 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" File manager
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+
 " Plugin 'scrooloose/syntastic'
 " Using ale instead of syntastic
+
+" Comment/uncomment easily
 Plugin 'scrooloose/nerdcommenter'
+
 " Plugin 'valloric/youcompleteme'
 " I'm using kite autocomplete now instead of ycm
+
 Plugin 'Yggdroot/indentLine'
+
+" Like VSCode's multiple cursors
 Plugin 'terryma/vim-multiple-cursors'
+
+" increase indentation size according to the fibonacci series
 " Plugin 'dodie/vim-fibo-indent'
+
+" Syntax checker
 Plugin 'dense-analysis/ale'
+
+" nice looking status bar
 Plugin 'vim-airline/vim-airline'
+
+" enable workspaces (use :ToggleWorkspace to create a new
+" workspace)
 Plugin 'thaerkh/vim-workspace'
+
+" edit files in directories which don't exist yet
 Plugin 'pbrisbin/vim-mkdir'
+
+" Easily mark and unmark checkboxes
 Plugin 'jkramer/vim-checkbox'
+
+" Instantly preview markdown in browser
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
-" Plugins here
+
+" apparently the best git plugin for vim
+Plugin 'tpope/vim-fugitive'
+" Plugins end
 
 call vundle#end()
 " Brief help
@@ -59,7 +85,7 @@ let g:ale_fixers = {
 \}
 " End ALE
 
-" For YouCompleteMe
+" {{{ For YouCompleteMe
 "let g:ycm_python_interpreter_path = ''
 "let g:ycm_python_sys_path = []
 "let g:ycm_extra_conf_vim_data = [
@@ -69,6 +95,7 @@ let g:ale_fixers = {
 "let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
 " let g:ycm_auto_trigger = 0
 " End YouCompleteMe
+" }}}
 
 " for vim-workspace plugin
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
@@ -130,4 +157,8 @@ command! MakeTags !ctags -R .
 " vim-instant-markdown configurations 
 let g:instant_mardown_autostart = 0 
 "disables autostart
+
+" Change indent continuously
+vmap < <gv
+vmap > >gv
 
