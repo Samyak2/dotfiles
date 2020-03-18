@@ -10,8 +10,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Plugin 'scrooloose/syntastic'
+" Using ale instead of syntastic
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
+" I'm using kite autocomplete now instead of ycm
 Plugin 'Yggdroot/indentLine'
 Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'dodie/vim-fibo-indent'
@@ -56,13 +58,13 @@ let g:ale_fixers = {
 " End ALE
 
 " For YouCompleteMe
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-  \  'g:ycm_python_interpreter_path',
-  \  'g:ycm_python_sys_path'
-  \]
-let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
+"let g:ycm_python_interpreter_path = ''
+"let g:ycm_python_sys_path = []
+"let g:ycm_extra_conf_vim_data = [
+  "\  'g:ycm_python_interpreter_path',
+  "\  'g:ycm_python_sys_path'
+  "\]
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
 " let g:ycm_auto_trigger = 0
 " End YouCompleteMe
 
@@ -107,11 +109,6 @@ set incsearch		" Incremental search
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
-" Source a global configuration file if available
-" if filereadable("/etc/vim/vimrc.local")
-"   source /etc/vim/vimrc.local
-" endif
-
 " Show tabs and spaces
 " :set listchars=tab:▸\ ,trail:· 
 :set listchars=tab:├─,trail:·,nbsp:⎵
@@ -120,4 +117,11 @@ set incsearch		" Incremental search
 " Show line numbers
 :set number
 :set splitright
+
+" from talk on vim by maxim
+set path+=** " Adds ability to search in all subdirs
+set wildmenu " Shows tab completion options in command mode
+
+" For the below command to work, ctags must be installed
+command! MakeTags !ctags -R .
 
