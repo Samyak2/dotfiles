@@ -20,7 +20,9 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'dense-analysis/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'thaerkh/vim-workspace'
-
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'jkramer/vim-checkbox'
+Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 " Plugins here
 
 call vundle#end()
@@ -124,4 +126,8 @@ set wildmenu " Shows tab completion options in command mode
 
 " For the below command to work, ctags must be installed
 command! MakeTags !ctags -R .
+
+" vim-instant-markdown configurations 
+let g:instant_mardown_autostart = 0 
+"disables autostart
 
