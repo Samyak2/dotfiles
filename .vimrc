@@ -21,8 +21,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Comment/uncomment easily
 Plugin 'scrooloose/nerdcommenter'
 
-" Plugin 'valloric/youcompleteme'
-" I'm using kite autocomplete now instead of ycm
+" Autocompletion
+Plugin 'valloric/youcompleteme'
 
 Plugin 'Yggdroot/indentLine'
 
@@ -53,6 +53,15 @@ Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 
 " apparently the best git plugin for vim
 Plugin 'tpope/vim-fugitive'
+
+" better markdown support
+Plugin 'tpope/vim-markdown'
+
+" brackets and quotes
+Plugin 'tpope/vim-surround'
+
+" Automatic brackets and quote matching
+Plugin 'jiangmiao/auto-pairs'
 
 " to search through files using ag/ack
 " see :Ack section below to enable Ag support
@@ -98,13 +107,19 @@ let g:ale_fixers = {
 " }}}
 
 " {{{ For YouCompleteMe
-"let g:ycm_python_interpreter_path = ''
-"let g:ycm_python_sys_path = []
-"let g:ycm_extra_conf_vim_data = [
-  "\  'g:ycm_python_interpreter_path',
-  "\  'g:ycm_python_sys_path'
-  "\]
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
+"let g:ycm_filetype_specific_completion_to_disable = {
+      "\ 'python': 1
+      "\}
+"let g:ycm_filetype_blacklist = {
+      "\ 'python': 1
+      "\}
 " let g:ycm_auto_trigger = 0
 " End YouCompleteMe
 " }}}
@@ -162,7 +177,8 @@ set incsearch		" Incremental search
 
 " {{{ Show tabs and spaces
 " :set listchars=tab:▸\ ,trail:· 
-:set listchars=tab:├─,trail:·,nbsp:⎵
+" :set listchars=tab:├─,trail:·,nbsp:⎵
+:set listchars=tab:<─>,trail:·,nbsp:⎵
 :set list
 " }}}
 
@@ -179,13 +195,19 @@ set wildmenu " Shows tab completion options in command mode
 command! MakeTags !ctags -R .
 " }}}
 
-" {{{ vim-instant-markdown configurations 
-let g:instant_mardown_autostart = 0 
+" {{{ vim-instant-markdown configurations
 "disables autostart
+let g:instant_mardown_autostart = 0
+let g:instant_markdown_slow = 1
 " }}}
 
 " {{{ Change indent continuously
 vmap < <gv
 vmap > >gv
+" }}}
+
+" {{{ Colors
+hi SpellBad cterm=none ctermfg=black ctermbg=lightred
+hi ALEWarning cterm=none ctermfg=black ctermbg=red
 " }}}
 
