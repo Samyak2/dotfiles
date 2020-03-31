@@ -1,21 +1,35 @@
-# If you come from bash you might have to change your $PATH.
+# vim: fdm=marker foldenable sw=4 ts=4 sts=4
+# zo" to open folds, "zc" to close, "zn" to disable.
+
+# {{{ If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:$PATH
+# }}}
 
-# Path to your oh-my-zsh installation.
+# {{{ Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+# }}}
 
+# {{{ Fix for docker autocomplete
+autoload -U compinit && compinit
+# }}}
+
+# {{{ Theme
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bira"
+# }}}
 
+# {{{ Random themes
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# }}}
 
+# {{{ Some extra options
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -63,16 +77,20 @@ ZSH_THEME="bira"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# }}}
+
+# {{{ Plugins!
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract virtualenv)
+plugins=(git extract virtualenv docker)
+# }}}
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# {{{ User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -88,7 +106,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+# }}}
 
+# {{{ Aliases
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -98,19 +118,28 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-#
+# }}}
 
+# {{{ Syntax highlighting of commands typed in zsh
+# See download instructions at https://github.com/zsh-users/zsh-syntax-highlighting
 source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# }}}
 
-
+# {{{ Ruby
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+# }}}
 
-# HSTR configuration - add this to ~/.zshrc
+# {{{ Better history view using hstr
+# Install from https://github.com/dvorka/hstr
 alias hh=hstr                    # hh to be alias for hstr
 setopt histignorespace           # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor       # get more colors
 bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
+# }}}
 
+# {{{ For conveniently syncing my dotfiles with git
+# More details will be available here https://github.com/Samyak2/dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# }}}
 
