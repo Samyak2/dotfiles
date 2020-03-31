@@ -67,6 +67,10 @@ Plugin 'jiangmiao/auto-pairs'
 " see :Ack section below to enable Ag support
 Plugin 'mileszs/ack.vim'
 
+" _vimrc_local.vim support
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'LucHermitte/local_vimrc'
+
 " Plugins end
 
 call vundle#end()
@@ -99,10 +103,13 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_filetype_changed = 1
 let g:ale_linters = {
 \   'python': ['pylint'],
+\   'cpp': ['clang']
 \}
 let g:ale_fixers = {
-\ 'python': ['autopep8']
+\ 'python': ['autopep8'],
+\ 'cpp': ['clang-format']
 \}
+let g:ale_completion_enabled = 1
 " End ALE
 " }}}
 
@@ -120,7 +127,10 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
 "let g:ycm_filetype_blacklist = {
       "\ 'python': 1
       "\}
-" let g:ycm_auto_trigger = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+
 " End YouCompleteMe
 " }}}
 
@@ -179,6 +189,8 @@ set incsearch		" Incremental search
 " :set listchars=tab:▸\ ,trail:· 
 " :set listchars=tab:├─,trail:·,nbsp:⎵
 :set listchars=tab:<─>,trail:·,nbsp:⎵
+" Make tab and trail (from above) to be shown in dark grey
+:hi SpecialKey ctermfg=DarkGray
 :set list
 " }}}
 
@@ -197,7 +209,7 @@ command! MakeTags !ctags -R .
 
 " {{{ vim-instant-markdown configurations
 "disables autostart
-let g:instant_mardown_autostart = 0
+let g:instant_markdown_autostart = 0
 let g:instant_markdown_slow = 1
 " }}}
 
