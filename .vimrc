@@ -71,6 +71,21 @@ Plugin 'mileszs/ack.vim'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 
+" OpenGL Syntax Highlighting
+Plugin 'beyondmarc/opengl.vim'
+
+" Show git diff markers in gutter
+Plugin 'airblade/vim-gitgutter'
+
+" Solarized colorscheme
+Plugin 'altercation/vim-colors-solarized'
+
+" plugin for LaTeX support
+Plugin 'lervag/vimtex'
+
+" Julia support
+Plugin 'JuliaEditorSupport/julia-vim'
+
 " Plugins end
 
 call vundle#end()
@@ -109,7 +124,7 @@ let g:ale_fixers = {
 \ 'python': ['autopep8'],
 \ 'cpp': ['clang-format']
 \}
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 " End ALE
 " }}}
 
@@ -131,12 +146,18 @@ let g:ycm_auto_trigger = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
+" trigger semantic completion after typing 2 characters
+let g:ycm_semantic_triggers = {
+  \   'cpp': [ 're!\w{2}' ]
+  \ }
+
 " End YouCompleteMe
 " }}}
 
 " {{{ for vim-workspace plugin
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_autosave_untrailspaces = 0
+let g:workspace_autosave = 0
 " }}}
 
 " {{{ for :Ack
@@ -153,6 +174,16 @@ let g:indentLine_char = '▏'
 " :set tabstop=4
 " :set shiftwidth=4
 " :set expandtab
+:set softtabstop=4
+:set expandtab
+:set smarttab
+:set shiftwidth=4
+
+let maplocalleader = ','
+
+let g:tex_flavor = 'latex'
+let g:tex_conceal = ''
+hi Conceal ctermfg=White
 
 " {{{ Stuff from /etc/vim/vimrc
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
@@ -178,7 +209,7 @@ filetype plugin indent on
 "set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
 set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
+set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
@@ -194,9 +225,10 @@ set incsearch		" Incremental search
 :set list
 " }}}
 
-" {{{ Show line numbers
+" {{{ Show line numbers and vertical split right
 :set number
 :set splitright
+:set splitbelow
 " }}}
 
 " {{{ from talk on vim by maxin
@@ -219,7 +251,15 @@ vmap > >gv
 " }}}
 
 " {{{ Colors
-hi SpellBad cterm=none ctermfg=black ctermbg=lightred
-hi ALEWarning cterm=none ctermfg=black ctermbg=red
+:hi SpellBad cterm=none ctermfg=black ctermbg=lightred
+:hi ALEWarning cterm=none ctermfg=black ctermbg=red
+:hi YcmWarningSection ctermfg=black ctermbg=red
+:hi MatchParen term=NONE ctermbg=White ctermfg=Blue
+" }}}
+
+" {{{ Enable colorscheme
+syntax enable
+set background=dark
+"colorscheme solarized
 " }}}
 
