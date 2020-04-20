@@ -143,3 +143,8 @@ bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode che
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # }}}
 
+# {{{ load extra configuration
+# from .zshrc_extra
+source "$HOME/.zshrc_extra"
+# }}}
+
