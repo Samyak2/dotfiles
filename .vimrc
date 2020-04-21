@@ -122,8 +122,10 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \ 'python': ['autopep8'],
-\ 'cpp': ['clang-format']
+\ 'cpp': ['clang-format'],
+\ 'c': ['clang-format']
 \}
+"let g:ale_python_pylint_options = "--load-plugins pylint_flask_sqlalchemy"
 let g:ale_completion_enabled = 0
 " End ALE
 " }}}
@@ -206,7 +208,7 @@ filetype plugin indent on
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
+set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
 set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
@@ -242,7 +244,7 @@ command! MakeTags !ctags -R .
 " {{{ vim-instant-markdown configurations
 "disables autostart
 let g:instant_markdown_autostart = 0
-let g:instant_markdown_slow = 1
+let g:instant_markdown_slow = 0
 " }}}
 
 " {{{ Change indent continuously
