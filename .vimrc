@@ -46,7 +46,7 @@ Plugin 'thaerkh/vim-workspace'
 Plugin 'pbrisbin/vim-mkdir'
 
 " Easily mark and unmark checkboxes
-Plugin 'jkramer/vim-checkbox'
+" Plugin 'jkramer/vim-checkbox'
 
 " Instantly preview markdown in browser
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
@@ -61,7 +61,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 
 " Automatic brackets and quote matching
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'jiangmiao/auto-pairs'
 
 " to search through files using ag/ack
 " see :Ack section below to enable Ag support
@@ -72,13 +72,13 @@ Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 
 " OpenGL Syntax Highlighting
-Plugin 'beyondmarc/opengl.vim'
+" Plugin 'beyondmarc/opengl.vim'
 
 " Show git diff markers in gutter
 Plugin 'airblade/vim-gitgutter'
 
 " Solarized colorscheme
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 
 " plugin for LaTeX support
 Plugin 'lervag/vimtex'
@@ -126,6 +126,8 @@ let g:ale_fixers = {
 \ 'c': ['clang-format']
 \}
 "let g:ale_python_pylint_options = "--load-plugins pylint_flask_sqlalchemy"
+let g:ale_c_gcc_options = '-Wall -Wextra'
+let g:ale_c_clang_options = '-Wall -Wextra'
 let g:ale_completion_enabled = 0
 " End ALE
 " }}}
@@ -150,7 +152,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 
 " trigger semantic completion after typing 2 characters
 let g:ycm_semantic_triggers = {
-  \   'cpp': [ 're!\w{2}' ]
+  \   'cpp': [ 're!\w{2}' ],
+  \   'c': [ 're!\w{2}' ]
   \ }
 
 " End YouCompleteMe
@@ -169,6 +172,19 @@ if executable('ag')
 endif
 " }}}
 
+" {{{
+let g:vimtex_compiler_latexmk_engines = {
+    \ '_'                : '-xelatex',
+    \ 'pdflatex'         : '-pdf',
+    \ 'dvipdfex'         : '-pdfdvi',
+    \ 'lualatex'         : '-lualatex',
+    \ 'xelatex'          : '-xelatex',
+    \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
+    \ 'context (luatex)' : '-pdf -pdflatex=context',
+    \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
+    \}
+" }}}
+
 " Indent lines
 let g:indentLine_char = '▏'
 
@@ -180,6 +196,9 @@ let g:indentLine_char = '▏'
 :set expandtab
 :set smarttab
 :set shiftwidth=4
+
+" prevent slow O right after returning to normal mode from insert mode
+:set ttimeoutlen=100
 
 let maplocalleader = ','
 
@@ -209,13 +228,45 @@ filetype plugin indent on
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
 set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
+"set showmatch		" Show matching brackets.
 set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
+" }}}
+
+" {{{ Stuff from defaults.vim and example vimrc
+
+" The matchit plugin makes the % command work better, but it is not backwards
+" compatible.
+" The ! means the package won't be loaded right away but when plugins are
+" loaded during initialization.
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file (restore to previous version)
+  if has('persistent_undo')
+    set undofile	" keep an undo file (undo changes after closing)
+  endif
+endif
+
+set history=200		" keep 200 lines of command line history
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
 " }}}
 
 " {{{ Show tabs and spaces
@@ -252,11 +303,18 @@ vmap < <gv
 vmap > >gv
 " }}}
 
-" {{{ Colors
+" {{{ Colors and highlighting
 :hi SpellBad cterm=none ctermfg=black ctermbg=lightred
 :hi ALEWarning cterm=none ctermfg=black ctermbg=red
 :hi YcmWarningSection ctermfg=black ctermbg=red
 :hi MatchParen term=NONE ctermbg=White ctermfg=Blue
+
+:hi DiffAdd term=bold ctermbg=DarkBlue ctermfg=Black
+:hi DiffText term=None ctermbg=DarkRed ctermfg=Magenta
+:hi DiffChange ctermbg=Green ctermfg=Black
+:hi DiffDelete term=bold ctermfg=DarkBlue ctermbg=Blue
+
+:hi MatchParen ctermfg=white ctermbg=gray
 " }}}
 
 " {{{ Enable colorscheme
