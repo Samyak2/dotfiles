@@ -85,7 +85,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract virtualenv docker gpg-agent)
+plugins=(git extract virtualenv gpg-agent exercism zsh-completions golang pip docker autojump)
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -145,6 +145,10 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # {{{ load extra configuration
 # from .zshrc_extra
-source "$HOME/.zshrc_extra"
+if [ -f "$HOME/.zshrc_extra" ]; then
+    source "$HOME/.zshrc_extra"
+fi
 # }}}
+
+source /usr/share/autojump/autojump.sh
 
