@@ -1,35 +1,40 @@
 # vim: fdm=marker foldenable sw=4 ts=4 sts=4
-# zo" to open folds, "zc" to close, "zn" to disable.
 
-# {{{ If you come from bash you might have to change your $PATH.
+# {{{ Powerlevel10k
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+# }}}
+
+# {{{ user/.local/bin
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 # }}}
 
-# {{{ Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-# }}}
-
-# {{{ Fix for docker autocomplete
-autoload -U compinit && compinit
+# {{{ Oh-My-Zsh
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 # }}}
 
 # {{{ Theme
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bira"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="powerlevel10k/powerlevel10k"
 # }}}
 
-# {{{ Random themes
+# {{{ extras from default zshrc
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-# }}}
 
-# {{{ Some extra options
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -76,16 +81,15 @@ ZSH_THEME="bira"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-
 # }}}
 
-# {{{ Plugins!
+# {{{ PLUGINS
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract virtualenv gpg-agent exercism zsh-completions golang pip docker autojump)
+plugins=(git extract zsh-syntax-highlighting virtualenv pip docker zsh-autosuggestions gpg-agent)
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -99,16 +103,19 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+if [ -f "/usr/bin/nvim" ]
+then
+    export EDITOR='nvim'
+else
+    export EDITOR='vim'
+fi
 # else
 #   export EDITOR='mvim'
 # fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-# }}}
 
-# {{{ Aliases
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -117,17 +124,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-# }}}
 
-# {{{ Syntax highlighting of commands typed in zsh
-# See download instructions at https://github.com/zsh-users/zsh-syntax-highlighting
-source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# }}}
-
-# {{{ Ruby
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 # }}}
 
 # {{{ Better history view using hstr
@@ -138,17 +135,139 @@ export HSTR_CONFIG=hicolor       # get more colors
 bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 # }}}
 
-# {{{ For conveniently syncing my dotfiles with git
-# More details will be available here https://github.com/Samyak2/dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# {{{ Spaceship prompt (not used with powerlevel10k)
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  # hg            # Mercurial section (hg_branch  + hg_status)
+  # package       # Package version
+  node          # Node.js section
+  # ruby          # Ruby section
+  # elixir        # Elixir section
+  # xcode         # Xcode section
+  # swift         # Swift section
+  golang        # Go section
+  # php           # PHP section
+  rust          # Rust section
+  # haskell       # Haskell Stack section
+  julia         # Julia section
+  docker        # Docker section
+  # aws           # Amazon Web Services section
+  venv          # virtualenv section
+  # conda         # conda virtualenv section
+  # pyenv         # Pyenv section
+  # dotnet        # .NET section
+  # ember         # Ember.js section
+  # kubectl       # Kubectl context section
+  # terraform     # Terraform workspace section
+  exec_time     # Execution time
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  line_sep      # Line break
+  char          # Prompt character
+)
+SPACESHIP_EXIT_CODE_SHOW="true"
+SPACESHIP_BATTERY_SHOW="always"
+SPACESHIP_VENV_SYMBOL="🐍"
+SPACESHIP_VENV_COLOR="green"
 # }}}
 
-# {{{ load extra configuration
-# from .zshrc_extra
-if [ -f "$HOME/.zshrc_extra" ]; then
-    source "$HOME/.zshrc_extra"
+# {{{ zsh autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+# }}}
+
+# {{{ Compiler - using clang if available
+if [ -f '/usr/bin/clang' ];
+then
+    export CC=/usr/bin/clang
+fi
+
+if [ -f '/usr/bin/clang++' ];
+then
+    export CXX=/usr/bin/clang++
 fi
 # }}}
 
-source /usr/share/autojump/autojump.sh
+# {{{ Julia
+export JULIA_NUM_THREADS=4
 
+# generated by Comonicon
+# Julia bin PATH
+if [ -f "$HOME/.julia/bin" ]; then
+    export PATH="$PATH:$HOME/.julia/bin"
+fi
+
+# generated by Comonicon
+# Julia autocompletion PATH
+if [ -f "$HOME/.julia/completions:$FPATH" ]; then
+    export FPATH="$HOME/.julia/completions:$FPATH"
+fi
+
+# }}}
+
+# {{{ Google Cloud SDK
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/.gcloud/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.gcloud/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/.gcloud/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.gcloud/google-cloud-sdk/completion.zsh.inc"; fi
+# }}}
+
+
+# {{{ heroku
+if [ -f "$HOME/apps/heroku/bin" ]; then
+    export PATH="$PATH:$HOME/apps/heroku/bin"
+fi
+# }}}
+
+# {{{ AWS Elastic Beanstalk
+if [ -f "$HOME/.ebcli-virtual-env/executables" ]; then
+    export PATH="$PATH:$HOME/.ebcli-virtual-env/executables"
+fi
+# }}}
+
+# {{{ to use protontricks from steam installed through flatpak
+alias protontricks-flat='flatpak run --command=protontricks com.valvesoftware.Steam --no-runtime'
+# }}}
+
+# {{{ fun aliases
+alias pls="sudo "
+alias gib="dnf install "
+# }}}
+
+
+# {{{ GitHub CLI completion
+if type "gh" > /dev/null; then
+    eval "$(gh completion -s zsh)"
+fi
+# }}}
+
+# {{{ Completion for kitty
+if type "kitty" > /dev/null; then
+    kitty + complete setup zsh | source /dev/stdin
+fi
+# }}}
+
+# {{{ Blur in yakuake or kitty
+if [[ $(ps --no-header -p $PPID -o comm) =~ '^yakuake|kitty$' ]]; then
+        for wid in $(xdotool search --pid $PPID); do
+            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+fi
+# }}}
+
+# {{{ Powerlevel10k stuff
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if type "pyenv" > /dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+# }}}
