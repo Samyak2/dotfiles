@@ -1,11 +1,17 @@
 # My configuration files
 
-Idea taken from [here](https://www.atlassian.com/git/tutorials/dotfiles)
+Uses GNU stow to manage config files.
 
-Follow the steps in the above link to install.
+Idea from [here](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/)
 
-Currently available dotfiles:
- - `.vimrc` for vim 8.1
- - `.zshrc` for zsh with [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
- - `.pylintrc` for pylint
+## Requirements
+
+ - GNU Stow
+ - This repo must be cloned one dir deep into home. Example: `~/.dotfiles`
+
+## Usage
+
+Use `stow <dir_name` to use individual configs.
+
+Example: `stow nvim` to get all neovim configs.
 
