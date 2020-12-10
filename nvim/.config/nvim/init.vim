@@ -37,7 +37,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Julia support
-Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'JuliaEditorSupport/julia-vim'
 
 " multiple language support
 Plug 'sheerun/vim-polyglot'
@@ -65,7 +65,7 @@ call plug#end()
 
 " {{{ Coc.nvim
 " Disable completion for python
-autocmd FileType julia let b:coc_suggest_disable = 1
+" autocmd FileType julia let b:coc_suggest_disable = 1
 
 " <tab> to trigger completion
 function! s:check_back_space() abort
@@ -125,6 +125,25 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+" }}}
+
+" {{{ Coc Extensions!
+let g:coc_global_extensions = [
+            \'coc-bookmark',
+            \'coc-clangd',
+            \'coc-css',
+            \'coc-docker',
+            \'coc-eslint',
+            \'coc-go',
+            \'coc-html',
+            \'coc-json',
+            \'coc-julia',
+            \'coc-lists',
+            \'coc-python',
+            \'coc-sh',
+            \'coc-tsserver',
+            \'coc-yaml',
+            \]
 " }}}
 
 " {{{ ctrlspace config

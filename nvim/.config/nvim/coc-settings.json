@@ -6,5 +6,8 @@
     "python.linting.pylintEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
-    "coc.preferences.formatOnSaveFiletypes": ["html", "javascript", "typescript"]
+    "coc.preferences.formatOnSaveFiletypes": ["html", "javascript", "typescript", "julia"],
+    "julia.executablePath": "julia",
+    "julia.enabled": true,
+    "julia.lint.run": true
 }
