@@ -4,7 +4,9 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 " breeze colorscheme
-Plug 'fneu/breezy'
+" Plug 'fneu/breezy'
+" kuroi colorscheme
+Plug 'aonemd/kuroi.vim'
 
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -263,16 +265,16 @@ endif
 " {{{ Colors and highlighting
 " Color scheme (terminal)
 set t_Co=256
-set background=light
+set background=dark
 set termguicolors
-colorscheme breezy
-hi Normal guibg=NONE ctermbg=NONE
+colorscheme kuroi
+" hi Normal guibg=NONE ctermbg=NONE
 
 " Highlights
 " hi SpellBad cterm=none ctermfg=black
 " :hi SpellBad ctermfg=black ctermbg=cyan
-hi SpellBad ctermbg=lightgray ctermfg=black
-hi ALEWarning ctermbg=gray ctermfg=black
-:hi YcmWarningSection ctermfg=black ctermbg=red
-:hi MatchParen term=NONE ctermbg=White ctermfg=Blue
+" hi SpellBad ctermbg=lightgray ctermfg=black
+" hi ALEWarning ctermbg=gray ctermfg=black
+" :hi YcmWarningSection ctermfg=black ctermbg=red
+" :hi MatchParen term=NONE ctermbg=White ctermfg=Blue
 " }}}
