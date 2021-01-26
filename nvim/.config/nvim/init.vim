@@ -6,7 +6,9 @@ call plug#begin(stdpath('data') . '/plugged')
 " breeze colorscheme
 " Plug 'fneu/breezy'
 " kuroi colorscheme
-Plug 'aonemd/kuroi.vim'
+" Plug 'aonemd/kuroi.vim'
+" Plug 'sainnhe/sonokai'
+Plug 'nanotech/jellybeans.vim'
 
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -48,17 +50,14 @@ Plug 'Rykka/riv.vim'
 " org-mode pls
 Plug 'jceb/vim-orgmode'
 
-" workspaces? tabs? idk, is has too much. can't get over emacs yet
-Plug 'vim-ctrlspace/vim-ctrlspace'
-
 " Time tracking
 Plug 'wakatime/vim-wakatime'
 
 " LaTeX
 Plug 'lervag/vimtex'
 
-" auto imports
-Plug 'anihm136/importmagic.nvim'
+" Automatically change working dir
+Plug 'airblade/vim-rooter'
 
 call plug#end()
 " }}}
@@ -125,6 +124,16 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 " }}}
 
 " {{{ Coc Extensions!
@@ -186,11 +195,19 @@ let g:instant_markdown_slow = 0
 
 " {{{ vimtex LaTeX
 let g:tex_flavor = 'latex'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_manual = 1
 " }}}
 
 " {{{ vim-commentary config
 autocmd FileType julia setlocal commentstring=#\ %s
 autocmd FileType c,cpp,java setlocal commentstring=//\ %s
+" }}}
+
+" {{{ Rooter config
+let g:rooter_change_directory_for_non_project_files = 'current'
+
+let g:rooter_manual_only = 1
 " }}}
 
 " {{{ Misc
@@ -244,6 +261,7 @@ set softtabstop=4
 set expandtab
 set noshiftround
 autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype cpp,c setlocal tabstop=2 shiftwidth=2 softtabstop=2
 " }}}
 
 " {{{ Spell check for certain files
@@ -284,10 +302,35 @@ endif
 " {{{ Colors and highlighting
 " Color scheme (terminal)
 set t_Co=256
-set background=dark
+" set background=dark
 set termguicolors
-colorscheme kuroi
-" hi Normal guibg=NONE ctermbg=NONE
+
+let g:sonokai_style = 'maia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+if has('termguicolors') && &termguicolors
+    let g:jellybeans_overrides['background']['guibg'] = 'none'
+endif
+let g:jellybeans_use_term_italics = 1
+
+colorscheme jellybeans
+hi Normal guibg=NONE ctermbg=NONE
+
+function! AdaptColorscheme()
+    highlight clear CursorLine
+    highlight Normal ctermbg=none
+    highlight LineNr ctermbg=none
+    highlight Folded ctermbg=none
+    highlight NonText ctermbg=none
+    highlight SpecialKey ctermbg=none
+    highlight VertSplit ctermbg=none
+    highlight SignColumn ctermbg=none
+endfunction
+autocmd ColorScheme * call AdaptColorscheme()
 
 " Highlights
 " hi SpellBad cterm=none ctermfg=black
@@ -296,4 +339,8 @@ colorscheme kuroi
 " hi ALEWarning ctermbg=gray ctermfg=black
 " :hi YcmWarningSection ctermfg=black ctermbg=red
 " :hi MatchParen term=NONE ctermbg=White ctermfg=Blue
+" }}}
+"
+" {{{ Mouse
+set mouse+=a
 " }}}
