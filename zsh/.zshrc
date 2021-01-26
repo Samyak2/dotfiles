@@ -222,13 +222,13 @@ if [ -f "$HOME/.gcloud/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.gc
 
 
 # {{{ heroku
-if [ -f "$HOME/apps/heroku/bin" ]; then
+if [ -d "$HOME/apps/heroku/bin" ]; then
     export PATH="$PATH:$HOME/apps/heroku/bin"
 fi
 # }}}
 
 # {{{ AWS Elastic Beanstalk
-if [ -f "$HOME/.ebcli-virtual-env/executables" ]; then
+if [ -d "$HOME/.ebcli-virtual-env/executables" ]; then
     export PATH="$PATH:$HOME/.ebcli-virtual-env/executables"
 fi
 # }}}
