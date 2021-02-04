@@ -11,7 +11,8 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'nanotech/jellybeans.vim'
 
 " Airline
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " Comments
 Plug 'tpope/vim-commentary'
@@ -20,7 +21,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 " Better sessions
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 
 " Instantly preview markdown in browser
 Plug 'suan/vim-instant-markdown', {'rtp': 'after'}
@@ -33,7 +34,7 @@ Plug 'mattn/emmet-vim'
 
 " File manager?
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Completion and stuff
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -51,7 +52,7 @@ Plug 'Rykka/riv.vim'
 Plug 'jceb/vim-orgmode'
 
 " Time tracking
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 
 " LaTeX
 Plug 'lervag/vimtex'
@@ -116,7 +117,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -138,21 +139,35 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " {{{ Coc Extensions!
 let g:coc_global_extensions = [
-            \'coc-bookmark',
             \'coc-clangd',
-            \'coc-css',
             \'coc-docker',
-            \'coc-eslint',
             \'coc-go',
-            \'coc-html',
             \'coc-json',
             \'coc-julia',
             \'coc-lists',
             \'coc-python',
             \'coc-sh',
-            \'coc-tsserver',
             \'coc-yaml',
             \]
+" }}}
+
+" {{{ airline config
+let g:airline_highlighting_cache = 1
+let g:airline#extensions#hunks#enabled = 0
+" }}}
+
+" {{{ lightline config
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'currentfunction' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
 " }}}
 
 " {{{ ctrlspace config
@@ -187,6 +202,19 @@ let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
 let g:CtrlSpaceSaveWorkspaceOnExit = 1
 " }}}
 
+" {{{ ctrlp.vim config
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v([\/]\.(git|hg|svn))|node_modules|env$'
+  \ }
+" }}}
+
+" {{{ emmet-vim config
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+let g:user_emmet_leader_key='<C-M>'
+" }}}
+
 " {{{ vim-instant-markdown configurations
 "disables autostart
 let g:instant_markdown_autostart = 0
@@ -211,6 +239,10 @@ let g:rooter_manual_only = 1
 " }}}
 
 " {{{ Misc
+" Statusline
+
+" set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+
 " Jump to last position
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
