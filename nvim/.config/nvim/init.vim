@@ -145,7 +145,7 @@ let g:coc_global_extensions = [
             \'coc-json',
             \'coc-julia',
             \'coc-lists',
-            \'coc-python',
+            \'coc-pyright',
             \'coc-sh',
             \'coc-yaml',
             \]
@@ -264,8 +264,8 @@ nnoremap j gj
 nnoremap k gk
 
 " Searching
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 set hlsearch
 set incsearch
 set ignorecase
@@ -292,8 +292,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set noshiftround
-autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype cpp,c setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
+autocmd Filetype cpp,c setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 " }}}
 
 " {{{ Spell check for certain files
@@ -374,5 +374,5 @@ autocmd ColorScheme * call AdaptColorscheme()
 " }}}
 "
 " {{{ Mouse
-set mouse+=a
+" set mouse+=a
 " }}}
