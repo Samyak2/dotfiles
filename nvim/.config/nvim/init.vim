@@ -60,6 +60,12 @@ Plug 'lervag/vimtex'
 " Automatically change working dir
 Plug 'airblade/vim-rooter'
 
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" Extras for fzf
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 " }}}
 
@@ -208,6 +214,28 @@ let g:ctrlp_custom_ignore = {
   \ }
 " }}}
 
+" {{{ Using ag for grep and ctrlp
+
+" " The Silver Searcher
+" if executable('ag')
+"   " Use ag over grep
+"   set grepprg=ag\ --nogroup\ --nocolor
+
+"   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+"   " ag is fast enough that CtrlP doesn't need to cache
+"   let g:ctrlp_use_caching = 0
+" endif
+
+" " bind K to grep word under cursor
+" nnoremap L :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" " Ag command to search using Ag
+" command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+" }}}
+
 " {{{ emmet-vim config
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
@@ -292,8 +320,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set noshiftround
-autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
+autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype cpp,c setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype go setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 " }}}
 
 " {{{ Spell check for certain files
