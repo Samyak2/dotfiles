@@ -5,8 +5,16 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
-    "coc.preferences.formatOnSaveFiletypes": ["html", "javascript", "typescript", "julia"],
+    "pyright.disableSelfClsNotAccessed": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "html",
+        "javascript",
+        "typescript",
+        "julia"
+    ],
     "julia.executablePath": "julia",
     "julia.enabled": true,
-    "julia.lint.run": true
+    "julia.lint.run": true,
+    "go.goplsEnv": {"GO111MODULE": "on"},
+    "python.formatting.blackPath": "~/envs/main/bin/black"
 }

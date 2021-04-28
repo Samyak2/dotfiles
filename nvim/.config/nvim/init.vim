@@ -34,7 +34,7 @@ Plug 'mattn/emmet-vim'
 
 " File manager?
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Completion and stuff
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -65,6 +65,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Extras for fzf
 Plug 'junegunn/fzf.vim'
+
+" icons!
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 " }}}
@@ -141,6 +144,9 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add :Prettier for calling prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " }}}
 
 " {{{ Coc Extensions!
@@ -174,6 +180,10 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
+" }}}
+
+" {{{ NERDTree config
+nnoremap <C-f> :NERDTreeToggle<CR>
 " }}}
 
 " {{{ ctrlspace config
@@ -320,7 +330,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set noshiftround
-autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype javascript,typescript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype cpp,c setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype go setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 " }}}
